@@ -1,0 +1,100 @@
+# Python-specific ignores
+*.pyc
+*.pyo
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+venv.bak/
+
+# C extensions
+*.so
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/*.py[cod]
+
+# Docker
+docker-compose.yml
+Dockerfile
+.docker
+.dockerignore
+
+# Node.js
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Rust (opsional)
+target/
+Cargo.lock
+
+# System
+.DS_Store
+*.swp
+
+# Git & editor
+.git/
+.vscode/
+.idea/
+.gitignore
+.gitattributes
+
+# Env & secrets
+.env
+.env.*
+env/
+ENV/
+env.bak/
+
+# Logs
+*.log
+.cache
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+# PyCharm
+.idea
+
+# Python mode for VIM
+.ropeproject
+**/.ropeproject
