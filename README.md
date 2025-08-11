@@ -18,7 +18,7 @@ Don't put secrets in **.env** or hardcode them in the image (it will leak) save 
 3. New Space
 4. Select the Space SDK: Docker
 5. Choose a Docker template: blank
-6. Create files `Dockerfile` (only)
+6. Then add `Dockerfile` (only)
 
 Enjoy Done 😎
 
@@ -54,3 +54,13 @@ ENTRYPOINT ["sh", "-c", "python3 server.py & python3 -m xv"]
 **MIT License © 2025 Ryzenth Developers from TeamKillerX**
 
 This project is open source and available under the [MIT License](https://github.com/TeamKillerX/xv/blob/main/LICENSE).
+
+<div align="center">
+
+### 🌟 Star us on GitHub if you find this project useful!
+
+[![GitHub stars](https://img.shields.io/github/stars/TeamKillerX/xv?style=social)](https://github.com/TeamKillerX/xv)
+[![GitHub forks](https://img.shields.io/github/forks/TeamKillerX/xv?style=social)](https://github.com/TeamKillerX/xv/fork)
+[![GitHub watchers](https://img.shields.io/github/watchers/TeamKillerX/xv?style=social)](https://github.com/TeamKillerX/xv)
+
+</div>
