@@ -15,7 +15,7 @@ BOT_TOKEN=""
 FROM python:3.10-slim
 
 RUN apt-get update && apt-get install -y git \
-    && git clone https://github.com/TeamKillerX/chatbot-ryzenth.git /app \
+    && git clone https://github.com/TeamKillerX/xv.git /app \
     && cd /app \
     && pip3 install --no-cache-dir -r requirements.txt \
     && apt-get remove -y git \
