@@ -2,4 +2,5 @@ Ryzenth[fast]
 TgCrypto
 uvicorn
 fastapi[all]
+uvloop
 git+https://github.com/KurimuzonAkuma/pyrogram.git
