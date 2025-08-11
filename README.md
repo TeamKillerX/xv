@@ -9,7 +9,23 @@ API_HASH=""
 BOT_TOKEN=""
 ```
 
+Don't put secrets in **.env** or hardcode them in the image (it will leak) save them in hugging face secrets or another safe place.
+
 ## Dockerfile (Hugging Face)
+- Hosting Unlimited Free
+1. Go to [`huggingface.co`](https://huggingface.co/)
+2. Click ➕ New
+3. New Space
+4. Select the Space SDK: Docker
+5. Choose a Docker template: blank
+6. Create files `Dockerfile` (only)
+
+Enjoy Done 😎
+
+If using [`uptimerobot`](https://uptimerobot.com) for cron job anti mode sleep
+
+Add url `https://{username}-{repo}.hf.space/status` in uptimerobot
+
 ```Dockerfile
 # syntax=docker/dockerfile:1.4
 FROM python:3.10-slim
@@ -28,8 +44,6 @@ EXPOSE 7860
 
 ENTRYPOINT ["sh", "-c", "python3 server.py & python3 -m xv"]
 ```
-
-Don't put secrets in **.env** or hardcode them in the image (it will leak) save them in hugging face secrets or another safe place.
 
 ## Made By Solo Dev
 - **[xtdevs](https://t.me/xtdevs)** - Lead Developer & Creator
