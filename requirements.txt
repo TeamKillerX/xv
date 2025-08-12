@@ -1,4 +1,5 @@
 Ryzenth[fast]
+python-dotenv
 TgCrypto
 uvicorn
 fastapi[all]
