@@ -135,29 +135,27 @@ async def _ask(c: Client, m: Message):
     & ~filters.command(["start", "ask", "gptoss"])
 )
 async def _multi_turn_gemini(client: Client, message: Message):
-    if message.text:
-        await client.send_chat_action(message.chat.id, enums.ChatAction.TYPING)
-        await asyncio.sleep(1.5)
-        query = message.text.strip()
-        try:
-            if not GEMINI_API_KEY:
-                return await message.reply_text("401 Unauthorized LOL 😂")
-            user_data = await db.backup_gemini.find_one({"user_id": message.from_user.id})
-            backup_history = user_data.get("history_chat", []) if user_data else []
-            backup_history.append({"role": "user", "content": query})
-            response = await gem.aio.gemini_chat.ask(backup_history)
-            chat = await response.to_obj()
-            await message.reply_text(chat.choices[0].message.content)
-            backup_history.append({"role": "assistant", "content": chat.choices[0].message.content})
-            await db.backup_gemini.update_one(
-                {"user_id": message.from_user.id},
-                {"$set": {"history_chat": backup_history}},
-                upsert=True
-            )
-            return
-        except Exception as e:
-            LOGS.error(
-                f"Error processing message for user_id={getattr(message.from_user, 'id', 'unknown')}, "
-                f"message_text={getattr(message, 'text', 'unknown')}: {str(e)}"
-            )
-            return await message.reply_text("Error try again Gemini")
+    if not message.text:
+        return
+    await client.send_chat_action(message.chat.id, enums.ChatAction.TYPING)
+    await asyncio.sleep(1.5)
+    query = message.text.strip()
+    try:
+        if not GEMINI_API_KEY:
+            return await message.reply_text("401 Unauthorized LOL 😂")
+        user_data = await db.backup_gemini.find_one({"user_id": message.from_user.id})
+        backup_history = user_data.get("history_chat", []) if user_data else []
+        backup_history.append({"role": "user", "content": query})
+        response = await gem.aio.gemini_chat.ask(backup_history)
+        chat = await response.to_obj()
+        await message.reply_text(chat.choices[0].message.content)
+        backup_history.append({"role": "assistant", "content": chat.choices[0].message.content})
+        await db.backup_gemini.update_one(
+            {"user_id": message.from_user.id},
+            {"$set": {"history_chat": backup_history}},
+            upsert=True
+        )
+        return
+    except Exception as e:
+        LOGS.error(f"Error: message.text: {str(e)}")
+        return await message.reply_text("Error try again Gemini")
