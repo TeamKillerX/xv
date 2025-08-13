@@ -1,4 +1,4 @@
-Ryzenth[fast]
+git+https://github.com/TeamKillerX/Ryzenth.git
 python-dotenv
 TgCrypto
 uvicorn
