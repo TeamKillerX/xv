@@ -1,5 +1,12 @@
 ## Chatbot [Ryzenth]
 
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/TeamKillerX/xv)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-Yes-green)](https://github.com/TeamKillerX/xv/graphs/commit-activity)
+[![License](https://img.shields.io/badge/License-MIT-pink)](https://github.com/TeamKillerX/xv/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/TeamKillerX/xv/main.svg)](https://results.pre-commit.ci/latest/github/TeamKillerX/xv/main)
+
+
 ![Image](public/xv.jpg)
 
 ## HF Secrets
@@ -7,6 +14,8 @@
 API_ID=0
 API_HASH=""
 BOT_TOKEN=""
+MONGO_URL=""
+GEMINI_API_KEY=""
 ```
 
 Don't put secrets in **.env** or hardcode them in the image (it will leak) save them in hugging face secrets or another safe place.
