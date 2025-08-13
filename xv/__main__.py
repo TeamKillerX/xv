@@ -29,7 +29,7 @@ from pyrogram import idle
 from uvloop import install
 
 from logger import LOGS
-
+from database import db
 from . import ChatbotRyzenth
 
 logging.basicConfig(
@@ -50,6 +50,7 @@ async def shutdown(loop):
 
 async def main():
     try:
+        await db.connect()
         _ = ChatbotRyzenth(loop=loop)
         await _.start()
         LOGS.info("Application startup complete")
