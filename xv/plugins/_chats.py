@@ -27,9 +27,11 @@ from pyrogram.types import *
 from Ryzenth import RyzenthTools
 
 from config import *
+from database import db
 from logger import LOGS
 
 rt = RyzenthTools()
+gem = RyzenthTools(GEMINI_API_KEY)
 
 @Client.on_message(
     ~filters.scheduled
@@ -125,3 +127,32 @@ async def _ask(c: Client, m: Message):
         return
     except Exception as e:
         return await m.reply_text(f"Error: {e}")
+
+@Client.on_message(
+    filters.incoming
+    & filters.text
+    & filters.private
+    & ~filters.command(["start", "ask", "gptoss"])
+)
+async def _multi_turn_gemini(client: Client, message: Message):
+    if message.text:
+        await client.send_chat_action(message.chat.id, enums.ChatAction.TYPING)
+        await asyncio.sleep(1.5)
+        query = message.text.strip()
+        try:
+            user_data = await db.backup_gemini.find_one({"user_id": message.from_user.id})
+            backup_history = user_data.get("history_chat", []) if user_data else []
+            backup_history.append({"role": "user", "content": query})
+            response = await gem.aio.gemini_chat.ask(backup_history)
+            chat = await response.to_obj()
+            await message.reply_text(chat.choices[0].message.content)
+            backup_history.append({"role": "assistant", "content": chat.choices[0].message.content})
+            await db.backup_gemini.update_one(
+                {"user_id": message.from_user.id},
+                {"$set": {"history_chat": backup_history}},
+                upsert=True
+            )
+            return
+        except Exception as e:
+            LOGS.error(f"Error: message.text: {str(e)}")
+            return await message.reply_text("Error try again Gemini")
