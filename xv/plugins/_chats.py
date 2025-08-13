@@ -65,7 +65,13 @@ async def _ask_reason(c: Client, m: Message):
     await asyncio.sleep(1.5)
     try:
         start = time.monotonic()
-        response = await rt.aio.chat.ask(prompt, turbo_fast=True)
+        try:
+            response = await asyncio.wait_for(
+                rt.aio.chat.ask(prompt, turbo_fast=True),
+                timeout=10
+            )
+        except asyncio.TimeoutError:
+            return await m.reply_text("⚠️ Chat backend timed out. Please try again later.")
         _ = await response.to_obj()
         chat_reasoning = _.data.choices[0].message.reasoning
         chat_answer = _.data.choices[0].message.content
