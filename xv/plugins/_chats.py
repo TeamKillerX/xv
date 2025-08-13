@@ -18,6 +18,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
+import time
+import os
 from pyrogram import *
 from pyrogram.types import *
 from pyrogram.errors import *
@@ -46,6 +48,47 @@ async def startbot(m: Message):
         text="Welcome I'm excited to get started as a Chatbot Ryzenth bot!",
         reply_markup=InlineKeyboardMarkup(buttons)
     )
+
+@Client.on_message(
+    filters.private
+    & filters.command(["gptoss"])
+    & ~filters.forwarded
+)
+async def _ask_reason(c: Client, m: Message):
+    if len(m.command) > 1:
+        prompt = m.text.split(maxsplit=1)[1]
+    elif m.reply_to_message:
+        prompt = m.reply_to_message.text
+    else:
+        return await m.reply_text("?")
+    await c.send_chat_action(m.chat.id, enums.ChatAction.TYPING)
+    await asyncio.sleep(1.5)
+    try:
+        start = time.monotonic()
+        response = await rt.aio.chat.ask(prompt, turbo_fast=True)
+        _ = await response.to_obj()
+        chat_reasoning = _.data.choices[0].message.reasoning
+        chat_answer = _.data.choices[0].message.content
+        elapsed = time.monotonic() - start
+        if len(chat_answer) > 4096:
+            with open("chat.txt", "w+", encoding="utf8") as out_file:
+                out_file.write(chat_answer)
+            await m.reply_document(
+                document="chat.txt",
+                caption=f"💡Reasoning (took {elapsed:.2f}s):\n"
+                        f"<blockquote expandable>{chat_reasoning}</blockquote>"
+            )
+            os.remove("chat.txt")
+        else:
+            await m.reply_text(
+                f"💡Reasoning (took {elapsed:.2f}s):\n"
+                f"<blockquote expandable>{chat_reasoning}</blockquote>\n"
+                f"{chat_answer}"
+            )
+        await c.send_chat_action(m.chat.id, enums.ChatAction.CANCEL)
+        return
+    except Exception as e:
+        return await m.reply_text(f"Error: {e}")
 
 @Client.on_message(
     filters.private
