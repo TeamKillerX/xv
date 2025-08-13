@@ -28,6 +28,7 @@ from datetime import timedelta
 from pyrogram import idle
 from uvloop import install
 
+from database import db
 from logger import LOGS
 
 from . import ChatbotRyzenth
@@ -50,6 +51,7 @@ async def shutdown(loop):
 
 async def main():
     try:
+        await db.connect()
         _ = ChatbotRyzenth(loop=loop)
         await _.start()
         LOGS.info("Application startup complete")
