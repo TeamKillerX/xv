@@ -156,5 +156,8 @@ async def _multi_turn_gemini(client: Client, message: Message):
             )
             return
         except Exception as e:
-            LOGS.error(f"Error: message.text: {str(e)}")
+            LOGS.error(
+                f"Error processing message for user_id={getattr(message.from_user, 'id', 'unknown')}, "
+                f"message_text={getattr(message, 'text', 'unknown')}: {str(e)}"
+            )
             return await message.reply_text("Error try again Gemini")
