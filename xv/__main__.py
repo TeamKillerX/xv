@@ -28,8 +28,9 @@ from datetime import timedelta
 from pyrogram import idle
 from uvloop import install
 
-from logger import LOGS
 from database import db
+from logger import LOGS
+
 from . import ChatbotRyzenth
 
 logging.basicConfig(
