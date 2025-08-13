@@ -140,6 +140,8 @@ async def _multi_turn_gemini(client: Client, message: Message):
         await asyncio.sleep(1.5)
         query = message.text.strip()
         try:
+            if not GEMINI_API_KEY:
+                return await message.reply_text("401 Unauthorized LOL 😂")
             user_data = await db.backup_gemini.find_one({"user_id": message.from_user.id})
             backup_history = user_data.get("history_chat", []) if user_data else []
             backup_history.append({"role": "user", "content": query})
