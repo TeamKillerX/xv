@@ -70,7 +70,7 @@ async def _ask_reason(c: Client, m: Message):
         start = time.monotonic()
         try:
             response = await asyncio.wait_for(
-                rt.aio.chat.ask(prompt, turbo_fast=True),
+                rt.aio.chat.ask(prompt, use_turbo_fast=True),
                 timeout=10
             )
         except asyncio.TimeoutError:
