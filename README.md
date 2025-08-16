@@ -9,6 +9,16 @@
 
 ![Image](public/xv.jpg)
 
+## ⚠️ Warning: Blacklist Policy
+
+- Using pirated or unauthorized repositories will result in **permanent blacklist**.
+- Hugging Face and other platforms may also restrict your access.
+- Even **Telegram API** can blacklist your bot if violations are detected.
+
+> Example: Tried using an invalid bot token connection failed.
+
+![Image](public/suspended.jpg)
+
 ## HF Secrets
 ```env
 API_ID=0

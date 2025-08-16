@@ -1,5 +1,6 @@
 git+https://github.com/TeamKillerX/Ryzenth.git
 python-dotenv
+motor
 TgCrypto
 uvicorn
 fastapi[all]
