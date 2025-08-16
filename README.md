@@ -17,6 +17,8 @@
 
 > Example: Tried using an invalid bot token connection failed.
 
+![Image](public/suspended.jpg)
+
 ## HF Secrets
 ```env
 API_ID=0
